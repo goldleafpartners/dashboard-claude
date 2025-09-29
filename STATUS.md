@@ -1,7 +1,7 @@
 # ContractorNerd CRM - Build Status
 
 **Date**: September 29, 2025
-**Status**: Phase 1 Complete ✅
+**Status**: Phase 2 Complete ✅
 
 ## What's Been Built
 
@@ -95,17 +95,50 @@ dashboard-claude/
 └── STATUS.md                         ✅ This file
 ```
 
-## What's NOT Built Yet (Future Phases)
+### ✅ Phase 2: Opportunities & Quotes (COMPLETE)
 
-### 🔨 Phase 2: Opportunities & Quotes
-- [ ] Opportunity list page
-- [ ] Opportunity detail page with pipeline view
-- [ ] Opportunity kanban board
-- [ ] Quote list page
-- [ ] Quote detail page with carrier attempts
-- [ ] Quote ingestion API endpoint
-- [ ] Carrier adapter interface
-- [ ] Browserbase integration
+#### Opportunity Management
+- ✅ Opportunity list page with table view
+- ✅ Create new opportunity form with account linking
+- ✅ Opportunity detail page with tabs
+- ✅ Stage progress visual component (intake → quote → uw_review → bind → lost)
+- ✅ Product line multi-select (GL, WC, Surety, Excess Liability, Builder's Risk, Auto, Umbrella)
+- ✅ Expected premium, probability, and close date tracking
+- ✅ Quote attempts panel (reusable component)
+
+#### Quote Management
+- ✅ Quote list page showing all quotes across opportunities
+- ✅ Quote detail page with full information
+- ✅ Visual outcome indicators (quoted ✅ / declined ❌ / error ⚠️ / no-offer 🚫)
+- ✅ Status badges and timeline
+- ✅ Coverage details display (JSON)
+- ✅ Browserbase run information tab
+- ✅ Quote document links
+
+#### API & Integration
+- ✅ Quote ingestion API endpoint (`/api/quotes/ingest`)
+- ✅ Auto-create accounts and opportunities if needed
+- ✅ Idempotent quote creation/updates
+- ✅ Carrier adapter interface (BaseCarrierAdapter)
+- ✅ BTIS adapter placeholder
+- ✅ Coterie adapter placeholder
+- ✅ Factory pattern for carrier selection
+
+#### Browserbase Integration
+- ✅ Browserbase service module
+- ✅ Start automation sessions
+- ✅ Track session status and results
+- ✅ Store logs, screenshots, error messages
+- ✅ Retry failed sessions
+- ✅ Link runs to quotes
+
+#### Dashboard Updates
+- ✅ Pipeline by stage breakdown
+- ✅ Quote performance metrics
+- ✅ Success rate calculation
+- ✅ Recent opportunities list
+
+## What's NOT Built Yet (Future Phases)
 
 ### 🔨 Phase 3: Policies & Automation
 - [ ] Policy list page
