@@ -1,36 +1,197 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ContractorNerd Ops+CRM Dashboard
 
-## Getting Started
+A unified internal operations and CRM dashboard for managing the complete insurance lifecycle from quote to renewal.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router) + TypeScript
+- **Database**: Supabase PostgreSQL
+- **File Storage**: Supabase Storage
+- **Auth**: Supabase Auth
+- **UI**: shadcn/ui + Tailwind CSS
+- **Email**: Resend + React Email
+- **Background Jobs**: Vercel Cron
+- **OCR**: OpenAI Vision API (GPT-4o)
+- **PDF Generation**: pdf-lib
+- **Deployment**: Vercel
+
+## Features (MVP)
+
+### Core Entities
+- ✅ Accounts (Companies/Insureds)
+- ✅ Contacts
+- ✅ Opportunities (Quote pipeline)
+- ✅ Quotes (Multi-carrier tracking)
+- ✅ Policies
+- ✅ Endorsements
+- ✅ Email tracking
+- ✅ Tasks
+- ✅ Documents
+
+### Workflows
+- Quote → Bind automation
+- Payment → Bind flow (Ascend)
+- Renewals automation (T-90/60/30)
+- Document OCR parsing
+- COI generation (ACORD 25)
+- Email tracking (Resend)
+
+## Setup Instructions
+
+### 1. Clone and Install
+
+```bash
+git clone <repository-url>
+cd dashboard-claude
+npm install
+```
+
+### 2. Set Up Supabase
+
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Go to Project Settings → API to get your keys
+3. Go to SQL Editor and run the schema from `supabase/schema.sql`
+
+### 3. Configure Environment Variables
+
+Copy `.env.local` and fill in your values:
+
+```bash
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# OpenAI (for OCR)
+OPENAI_API_KEY=your_openai_api_key
+
+# Resend (for email)
+RESEND_API_KEY=your_resend_api_key
+
+# Ascend (for payments)
+ASCEND_API_KEY=your_ascend_api_key
+ASCEND_WEBHOOK_SECRET=your_ascend_webhook_secret
+
+# Browserbase (for automation)
+BROWSERBASE_API_KEY=your_browserbase_api_key
+BROWSERBASE_PROJECT_ID=your_browserbase_project_id
+
+# AskKodiak (for appetite checks)
+ASKKODIAK_API_KEY=your_askkodiak_api_key
+
+# App
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### 4. Create Your First User
+
+In Supabase Dashboard → Authentication → Users, click "Add user" to create your first user.
+
+After creating the user, run this SQL to create their profile:
+
+```sql
+INSERT INTO profiles (id, email, full_name, role)
+VALUES (
+  'user-uuid-from-auth-users',
+  'your-email@example.com',
+  'Your Name',
+  'admin'
+);
+```
+
+### 5. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── app/
+│   ├── (dashboard)/          # Protected dashboard routes
+│   │   ├── accounts/         # Account management
+│   │   ├── dashboard/        # Main dashboard
+│   │   ├── opportunities/    # Opportunity pipeline
+│   │   ├── policies/         # Policy management
+│   │   ├── quotes/           # Quote tracking
+│   │   ├── renewals/         # Renewal management
+│   │   ├── tasks/            # Task management
+│   │   └── layout.tsx        # Dashboard layout
+│   ├── auth/                 # Auth callback
+│   ├── login/                # Login page
+│   └── api/                  # API routes (webhooks)
+├── components/
+│   ├── layout/               # Layout components
+│   └── ui/                   # shadcn/ui components
+├── lib/
+│   ├── supabase/             # Supabase clients
+│   └── utils.ts              # Utility functions
+└── supabase/
+    └── schema.sql            # Database schema
+```
 
-## Learn More
+## Next Steps
 
-To learn more about Next.js, take a look at the following resources:
+### Phase 2: Opportunities & Quotes
+- [ ] Opportunity pipeline with kanban view
+- [ ] Quote tracking with carrier status
+- [ ] Browserbase integration for portal carriers
+- [ ] API endpoints for quote ingestion
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Phase 3: Policies & Bind Automation
+- [ ] Policy management
+- [ ] Ascend payment webhook handler
+- [ ] Payment → bind automation
+- [ ] Document upload and storage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Phase 4: Email & Communications
+- [ ] Resend integration
+- [ ] Email templates (React Email)
+- [ ] Email tracking and timeline
+- [ ] Webhook handler for email events
 
-## Deploy on Vercel
+### Phase 5: Document Processing & COI
+- [ ] OCR service (OpenAI Vision API)
+- [ ] Policy parsing with confidence scoring
+- [ ] ACORD 25 COI generator
+- [ ] COI workflow (parse → review → generate)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Phase 6: Renewals Automation
+- [ ] Renewal detection logic
+- [ ] Vercel Cron jobs
+- [ ] Renewal task generation
+- [ ] T-90/60/30 email campaigns
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Phase 7: Reporting & Analytics
+- [ ] Dashboard KPIs
+- [ ] Quote-to-bind conversion reports
+- [ ] Renewal pipeline view
+- [ ] Email deliverability metrics
+
+## Deployment
+
+### Vercel
+
+1. Push code to GitHub
+2. Connect repository to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy
+
+### Post-Deployment
+
+1. Set up Supabase webhooks for:
+   - Ascend payment events
+   - Resend email events
+2. Configure Vercel Cron jobs for renewals
+3. Set up Resend domain and SPF/DKIM records
+
+## Support
+
+For questions or issues, contact the development team.
+
+## License
+
+Proprietary - ContractorNerd
