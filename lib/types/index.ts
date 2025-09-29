@@ -6,8 +6,8 @@ export interface QuoteRequest {
   product_line: string
   effective_date: string
   expiration_date: string
-  coverage_requirements: Record<string, any>
-  applicant_data: Record<string, any>
+  coverage_requirements: Record<string, unknown>
+  applicant_data: Record<string, unknown>
 }
 
 export interface QuoteResponse {
@@ -19,7 +19,7 @@ export interface QuoteResponse {
   premium?: number
   effective_date?: string
   expiration_date?: string
-  coverage_details?: Record<string, any>
+  coverage_details?: Record<string, unknown>
   decline_reason?: string
   error_message?: string
   quote_document_url?: string

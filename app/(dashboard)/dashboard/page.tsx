@@ -42,7 +42,6 @@ export default async function DashboardPage() {
 
   const allQuotes = quotesResult.data || []
   const quotedCount = allQuotes.filter((q) => q.outcome === 'quoted').length
-  const declinedCount = allQuotes.filter((q) => q.outcome === 'declined').length
 
   return (
     <div className="space-y-6">
@@ -166,7 +165,7 @@ export default async function DashboardPage() {
         <CardContent>
           {recentOpportunities.data && recentOpportunities.data.length > 0 ? (
             <div className="space-y-3">
-              {recentOpportunities.data.map((opp: any) => (
+              {recentOpportunities.data.map((opp) => (
                 <div key={opp.id} className="flex items-center justify-between">
                   <div>
                     <Link

@@ -26,8 +26,8 @@ export default function NewOpportunityPage() {
   const router = useRouter()
   const supabase = createClient()
   const [loading, setLoading] = useState(false)
-  const [accounts, setAccounts] = useState<any[]>([])
-  const [users, setUsers] = useState<any[]>([])
+  const [accounts, setAccounts] = useState<Array<{ id: string; name: string }>>([])
+  const [users, setUsers] = useState<Array<{ id: string; full_name: string }>>([])
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
   const [formData, setFormData] = useState({
     name: '',
@@ -51,11 +51,12 @@ export default function NewOpportunityPage() {
       if (accountsResult.data) setAccounts(accountsResult.data)
       if (usersResult.data) setUsers(usersResult.data)
       if (currentUser.data.user) {
-        setFormData(prev => ({ ...prev, owner_id: currentUser.data.user!.id }))
+        const userId = currentUser.data.user.id
+        setFormData(prev => ({ ...prev, owner_id: userId }))
       }
     }
     fetchData()
-  }, [])
+  }, [supabase])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

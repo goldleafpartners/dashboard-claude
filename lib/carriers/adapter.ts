@@ -40,16 +40,17 @@ export abstract class BaseCarrierAdapter implements CarrierAdapter {
  * @param carrierName - The name of the carrier
  * @returns CarrierAdapter instance
  */
-export function getCarrierAdapter(carrierName: string): CarrierAdapter {
+export async function getCarrierAdapter(carrierName: string): Promise<CarrierAdapter> {
   switch (carrierName.toLowerCase()) {
-    case 'btis':
-      // Dynamic import to avoid loading all adapters
-      const { BTISAdapter } = require('./btis')
+    case 'btis': {
+      const { BTISAdapter } = await import('./btis')
       return new BTISAdapter()
+    }
 
-    case 'coterie':
-      const { CoterieAdapter } = require('./coterie')
+    case 'coterie': {
+      const { CoterieAdapter } = await import('./coterie')
       return new CoterieAdapter()
+    }
 
     default:
       throw new Error(`No adapter found for carrier: ${carrierName}`)

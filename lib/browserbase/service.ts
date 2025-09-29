@@ -16,7 +16,7 @@ interface BrowserbaseRunOptions {
     username: string
     password: string
   }
-  form_data: Record<string, any>
+  form_data: Record<string, unknown>
 }
 
 /**
@@ -188,7 +188,7 @@ export async function completeBrowserbaseSession(
   session_id: string,
   result: {
     status: 'success' | 'error'
-    output_data?: Record<string, any>
+    output_data?: Record<string, unknown>
     screenshot_urls?: string[]
     logs?: string
     error_message?: string

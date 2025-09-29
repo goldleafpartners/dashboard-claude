@@ -60,6 +60,15 @@ export default async function QuoteDetailPage({ params }: { params: { id: string
 
   const browserbaseRuns = quote.browserbase_runs || []
 
+  interface BrowserbaseRun {
+    id: string
+    browserbase_session_id: string | null
+    status: string
+    started_at: string
+    completed_at: string | null
+    error_message: string | null
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -284,7 +293,7 @@ export default async function QuoteDetailPage({ params }: { params: { id: string
         <TabsContent value="browserbase">
           {browserbaseRuns.length > 0 ? (
             <div className="space-y-3">
-              {browserbaseRuns.map((run: any) => (
+              {browserbaseRuns.map((run: BrowserbaseRun) => (
                 <Card key={run.id}>
                   <CardContent className="pt-6">
                     <div className="flex items-start justify-between">

@@ -30,6 +30,11 @@ export default async function OpportunityDetailPage({ params }: { params: { id: 
 
   const quotes = opportunity.quotes || []
 
+  interface Quote {
+    id: string
+    outcome: string | null
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -156,13 +161,13 @@ export default async function OpportunityDetailPage({ params }: { params: { id: 
             <div>
               <p className="text-sm text-muted-foreground">Quoted</p>
               <p className="text-2xl font-bold text-green-600">
-                {quotes.filter((q: any) => q.outcome === 'quoted').length}
+                {quotes.filter((q: Quote) => q.outcome === 'quoted').length}
               </p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Declined</p>
               <p className="text-2xl font-bold text-red-600">
-                {quotes.filter((q: any) => q.outcome === 'declined').length}
+                {quotes.filter((q: Quote) => q.outcome === 'declined').length}
               </p>
             </div>
           </CardContent>

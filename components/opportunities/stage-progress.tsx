@@ -43,8 +43,7 @@ export function StageProgress({ currentStage }: StageProgressProps) {
                   className={cn(
                     'flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors',
                     {
-                      'bg-primary border-primary text-primary-foreground': isComplete,
-                      'bg-primary border-primary text-primary-foreground': isCurrent,
+                      'bg-primary border-primary text-primary-foreground': isComplete || isCurrent,
                       'bg-background border-muted-foreground/30 text-muted-foreground': isUpcoming,
                     }
                   )}
